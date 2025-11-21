@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Quiénes Somos — Alifruit</title>
+
+<link rel="icon" type="image/png" href="https://frutasalifruit.com/wp-content/uploads/grupoalifruit.png" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --bp-tablet:768px; --bp-desktop:1024px;
+    --topbar-h:58px; --sidebar-w:270px;
+
+    --panel:#000; --ink:#fff; --border:#1f1f1f;
+    --active:#ff6a21; --content-bg:#fff; --fb:#ff6a21;
+
+    --footer-ink:#111; --footer-dark:#111; --footer-legal:#f7f7f7;
+
+    --ticker-h:40px; --ticker-bg:#000; --ticker-ink:#fff; --ticker-sep:#fff;
+  }
+  @media (min-width:768px) and (max-width:1023.98px){ :root{ --topbar-h:60px; } }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    font-family:"Open Sans",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+    background:var(--content-bg);color:#111;
+    padding-bottom:var(--ticker-h);
+  }
+
+  /* ===== TOPBAR (móvil/tablet) ===== */
+  .topbar{position:fixed;inset:0 0 auto 0;height:var(--topbar-h);display:flex;align-items:center;z-index:100;background:var(--panel);color:var(--ink);border-bottom:1px solid var(--border)}
+  .topbar__in{width:100%;max-width:1200px;margin:0 auto;height:100%;padding:0 14px;display:flex;align-items:center;justify-content:space-between}
+  .brand{display:flex;align-items:center;gap:10px;min-width:0}
+  .brand-link{display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit}
+
+  .logo-sm{
+    width:28px;height:28px;border-radius:6px;overflow:hidden;
+    display:flex;align-items:center;justify-content:center;flex:0 0 auto;
+    background:transparent;
+  }
+  @media (max-width:1023.98px){ .logo-sm{ width:31px; height:31px; } }
+
+  .logo-sm img{width:100%;height:100%;object-fit:contain}
+  .brand-name{color:var(--ink);font-weight:800;letter-spacing:.2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .right-actions{display:flex;align-items:center;gap:8px}
+  .btn-icon{width:36px;height:36px;border-radius:10px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--border);background:#0f0f0f;color:var(--ink)}
+  .btn-icon:active{transform:translateY(1px)}
+  .btn-icon:focus-visible{outline:2px solid #3aa3ff;outline-offset:2px}
+
+  /* ===== Drawer ===== */
+  .scrim{position:fixed;inset:0;background:rgba(0,0,0,.5);opacity:0;visibility:hidden;transition:.2s;z-index:99}
+  .scrim.open{opacity:1;visibility:visible}
+  .drawer{position:fixed;top:0;left:0;bottom:0;width:80vw;max-width:360px;background:#141414;color:var(--ink);border-right:1px solid #1e1e1e;transform:translateX(-100%);transition:transform .25s;z-index:100;display:flex;flex-direction:column}
+  .drawer.open{transform:translateX(0)}
+  .d-top{height:var(--topbar-h);display:flex;align-items:center;justify-content:space-between;gap:10px;padding:0 14px;border-bottom:1px solid #1f1f1f}
+  .d-brand{display:flex;align-items:center;gap:10px;min-width:0}
+  .d-brand-link{display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit}
+  .d-close{width:32px;height:32px;border-radius:8px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;border:1px solid #2a2a2a;background:#101010;color:#e5e7eb}
+  .drawer .menu{overflow:auto;padding:20px 0 10px}
+  .drawer .menu ul{list-style:none}
+  .drawer .menu li{border-top:1px solid #111}
+  .drawer .menu li:first-child{border-top:none}
+  .drawer .menu a{display:block;padding:14px 18px;text-decoration:none;color:#e5e7eb;font-weight:600;transition:color .15s;border-radius:10px;text-align:left}
+  .drawer .menu a:hover,.drawer .menu a:focus-visible{color:var(--active)}
+  .drawer .menu a.active{color:var(--active)}
+  .submenu{display:none}
+
+  @media (max-width:1023.98px){
+    .drawer .submenu{display:none !important;}
+  }
+  @media (min-width:768px) and (max-width:1023.98px){.drawer{max-width:320px}}
+
+  /* ===== SIDEBAR (solo desktop) ===== */
+  .left{display:none}
+  @media (min-width:1024px){
+    .topbar{display:none}
+    .left{display:flex;position:fixed;inset:0 auto 0 0;width:var(--sidebar-w);background:var(--panel);color:var(--ink);border-right:1px solid var(--border);flex-direction:column;align-items:center;padding:18px 16px;text-align:center}
+    .left .logo-lg{width:200px;height:auto;object-fit:contain;display:block;margin:6px auto 58px auto}
+    .menu-d ul{list-style:none;display:flex;flex-direction:column;gap:16px;align-items:center}
+    .menu-d a{color:var(--ink);text-decoration:none;font-weight:600;text-transform:uppercase;letter-spacing:.6px;padding:8px 12px;display:inline-block;border:1px solid transparent;border-radius:12px;transition:color .15s;text-align:center;min-width:200px;font-size:15px}
+    .menu-d a:hover,.menu-d a:focus-visible{color:var(--active)}
+    .menu-d a.active{color:var(--active)}
+
+    .foot{margin-top:auto;text-align:center;padding:22px 0 10px;width:100%}
+    .foot .social{display:flex;gap:10px;justify-content:center;align-items:center;margin-bottom:12px}
+    .foot .social a{
+      width:21px;height:21px;border-radius:50%;
+      display:inline-flex;align-items:center;justify-content:center;
+      text-decoration:none;overflow:hidden;line-height:1;
+      background:var(--fb); color:#000; border:2px solid var(--fb);
+    }
+    .foot .copy{width:220px;margin:20px auto 0;font-size:11px;line-height:1.35;color:#fff;text-transform:uppercase;letter-spacing:.4px}
+    .foot .copy a{color:#fff;text-decoration:none;border-bottom:1px dotted #5a5a5a}
+  }
+
+  /* ===== CONTENIDO ===== */
+  main{min-height:100svh;background:var(--content-bg);padding:0;padding-top:var(--topbar-h)}
+  @media (min-width:1024px){main{margin-left:var(--sidebar-w);padding-top:0}}
+
+  /* Hero */
+  .hero{margin:0;position:relative}
+  .hero img{display:block;width:100%;height:auto;object-fit:cover}
+  .hero-title{
+    position:absolute;left:50%;top:15%;
+    transform:translate(-50%,-20px); /* texto ~20px más arriba, preferencia del usuario */
+    background:rgba(0,0,0,.55);color:#fff;padding:10px 14px;border-radius:10px;font-weight:800;letter-spacing:.4px
+  }
+
+  .section{max-width:1200px;margin:28px auto;padding:0 16px}
+  .section h1{font-size:28px;margin-bottom:12px}
+  .lead{font-size:15px;opacity:.9;line-height:1.6;margin-bottom:20px}
+
+  /* Misión / Visión / Valores */
+  .pillars{display:grid;gap:14px;grid-template-columns:1fr}
+  .panel{
+    border:1px solid #eee;border-radius:14px;background:#fff;padding:16px
+  }
+  .panel h3{font-size:18px;margin-bottom:8px}
+  .panel p{font-size:14px;line-height:1.6}
+  @media (min-width:768px){ .pillars{grid-template-columns:repeat(3,1fr)} }
+
+  /* Línea de tiempo */
+  .timeline{margin-top:26px;display:grid;gap:12px}
+  .item{
+    display:grid;grid-template-columns:94px 1fr;gap:12px;align-items:flex-start
+  }
+  .item .year{
+    font-weight:800;background:#111;color:#fff;border-radius:10px;padding:8px 10px;text-align:center
+  }
+  .item .desc{border:1px solid #eee;border-radius:12px;background:#fff;padding:12px;font-size:14px}
+
+  /* Equipo */
+  .team{margin-top:26px}
+  .cards{display:grid;gap:16px;grid-template-columns:1fr}
+  .card{
+    border:1px solid #eaeaea;border-radius:14px;background:#fff;padding:16px;display:flex;gap:14px;align-items:center
+  }
+  .avatar{
+    width:72px;height:72px;border-radius:50%;background:#f0f0f0;display:inline-flex;align-items:center;justify-content:center;font-size:28px
+  }
+  .role{font-weight:800}
+  .meta{font-size:13px;opacity:.8}
+  @media (min-width:768px){ .cards{grid-template-columns:repeat(2,1fr)} }
+  @media (min-width:1024px){ .cards{grid-template-columns:repeat(3,1fr)} }
+
+  /* Cifras de confianza */
+  .stats{
+    margin-top:28px;display:grid;gap:14px;grid-template-columns:repeat(2,1fr)
+  }
+  .stat{
+    background:#111;color:#fff;border-radius:14px;padding:16px;text-align:center
+  }
+  .stat b{font-size:22px;display:block;margin-bottom:6px}
+  @media (min-width:768px){ .stats{grid-template-columns:repeat(4,1fr)} }
+
+  /* =================== PIE DE PÁGINA =================== */
+  footer{margin-top:40px}
+  .footer-news{height:91px;display:flex;align-items:center;justify-content:center;gap:18px;background:#fff;color:#111;font-family:Arial,Helvetica,sans-serif;font-size:12px;font-weight:400}
+  .footer-news .icons{display:flex;gap:18px;align-items:center}
+  .footer-news .icons a{width:28px;height:28px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;color:#111;text-decoration:none;border:1px solid #dcdcdc}
+
+  .ff-grid{background:var(--footer-dark);color:#fff;padding:32px 16px;font-family:Arial,Helvetica,sans-serif;font-size:12px}
+  .ff-wrap{max-width:1200px;margin:0 auto;display:grid;gap:24px;grid-template-columns:1fr;align-items:flex-start;grid-template-areas:"prods" "about" "brand" "contact"}
+  .ff-products{grid-area:prods}
+  .ff-about{grid-area:about}
+  .ff-brand{grid-area:brand}
+  .ff-contact{grid-area:contact}
+  .ff-title{font-weight:800;color:#e9f4ec;margin-bottom:10px;font-size:18px}
+  .ff-list{list-style:none;display:grid;gap:8px}
+  .ff-list a{color:#e8fff0;font-weight:700;text-decoration:none}
+  .ff-list a:hover{text-decoration:underline}
+  .brand-box{display:flex;flex-direction:column;gap:14px;align-items:center}
+  .brand-box img{max-width:220px;height:auto;object-fit:contain;display:block}
+  .social{display:flex;gap:12px;align-items:center;justify-content:center}
+  .social a{width:36px;height:36px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;border:1px solid #d8d8d8;color:#d8d8d8}
+  .social a:hover{background:#f1f1f1;color:#333}
+  .contact{display:grid;gap:14px}
+  .ci{display:flex;align-items:flex-start;gap:12px;color:#fff;line-height:1.55}
+  .ci .round{width:38px;height:38px;border-radius:50%;background:#ff6a21;color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:16px;flex:0 0 38px}
+  .ci a{color:#fff;text-decoration:none}
+  .ci a:hover{opacity:.85}
+
+  @media (max-width:767.98px){
+    .ff-title{font-size:16px}
+    .ff-list a{font-size:13px}
+    .ff-wrap{grid-template-columns:1fr 1fr;grid-template-areas:"prods about" "brand brand" "contact contact"}
+  }
+  @media (min-width:768px){
+    .ff-title{font-size:20px}
+    .ff-list a{font-size:14px}
+    .brand-box img{max-width:200px}
+    .ff-wrap{grid-template-columns:1.1fr 1fr 1fr 1.2fr;grid-template-areas:"brand prods about contact"}
+  }
+  @media (min-width:1024px){
+    .ff-title{font-size:22px}
+    .brand-box img{max-width:220px}
+  }
+
+  .footer-legal{background:var(--footer-legal);color:#000;text-align:center;padding:18px 12px 26px 12px;font-family:Arial,Helvetica,sans-serif;font-size:12px}
+  .footer-legal .links{display:flex;gap:22px;justify-content:center;flex-wrap:wrap;margin-bottom:8px;font-size:14px}
+  .footer-legal .links a{color:#000;text-decoration:underline}
+  .footer-legal .country{opacity:.8;font-size:14px}
+
+  @media (min-width:1024px){footer{margin-left:var(--sidebar-w)}}
+
+  /* ===== TICKER INFERIOR ===== */
+  .ticker{position:fixed;right:0;bottom:0;height:var(--ticker-h);left:0;background:var(--ticker-bg);color:var(--ticker-ink);z-index:200;overflow:hidden;border-top:1px solid #111}
+  @media (min-width:1024px){.ticker{left:var(--sidebar-w)}}
+  .ticker__track{display:flex;gap:64px;align-items:center;height:100%;white-space:nowrap;will-change:transform;animation:ticker-move 30s linear infinite;padding-left:24px}
+  .ticker__inner{display:flex;gap:64px;align-items:center}
+  .ticker__item{display:inline-flex;align-items:center;gap:14px;font-weight:800;letter-spacing:.5px;font-size:16px;text-transform:uppercase;color:var(--ticker-ink)}
+  .ticker__sep{opacity:.95;color:var(--ticker-sep)}
+  .ticker a{color:var(--ticker-ink);text-decoration:none}
+  .ticker a:hover{text-decoration:underline}
+  @keyframes ticker-move{from{transform:translateX(0)}to{transform:translateX(-150%)}}
+
+  a,button{-webkit-tap-highlight-color:transparent}
+  a:focus,button:focus{outline:none}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<header class="topbar" aria-label="Barra superior">
+  <div class="topbar__in">
+    <a class="brand-link" href="index.html" aria-label="Ir al inicio">
+      <div class="brand">
+        <div class="logo-sm" aria-hidden="true">
+          <img src="https://frutasalifruit.com/wp-content/uploads/grupoalifruit.png" alt="">
+        </div>
+        <span class="brand-name">Alifruit</span>
+      </div>
+    </a>
+    <div class="right-actions">
+      <button class="btn-icon" id="btnMenu" aria-label="Abrir menú"><i class="fa fa-bars"></i></button>
+    </div>
+  </div>
+</header>
+
+<div class="scrim" id="scrim"></div>
+
+<!-- DRAWER -->
+<aside class="drawer" id="drawer" aria-label="Menú principal">
+  <div class="d-top">
+    <a class="d-brand-link" href="index.html" aria-label="Ir al inicio">
+      <div class="d-brand">
+        <div class="logo-sm" aria-hidden="true">
+          <img src="https://frutasalifruit.com/wp-content/uploads/grupoalifruit.png" alt="">
+        </div>
+        <span class="brand-name">Alifruit</span>
+      </div>
+    </a>
+    <button class="d-close" id="btnClose" aria-label="Cerrar menú"><i class="fa fa-times"></i></button>
+  </div>
+  <nav class="menu" role="navigation">
+    <ul>
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="servicios.html">Servicios a Empresas</a></li>
+      <li><a href="somos.html" class="active">Quiénes Somos</a></li>
+      <li><a href="productos.html">Productos</a></li>
+      <li><a href="certificaciones.html">Certificaciones</a></li>
+      <li><a href="calidad.html">Calidad</a></li>
+      <li><a href="calendario.html">Calendario Varietal</a></li>
+      <li><a href="contacto.html">Contacto y Ubicación</a></li>
+      <li><a href="galeria.html">Galeria</a></li>
+    </ul>
+  </nav>
+</aside>
+
+<!-- ====== LATERAL IZQUIERDO (encabezado) ====== -->
+<aside id="leftHeader" class="left" aria-label="Encabezado izquierdo">
+  <a href="index.html" aria-label="Ir al inicio">
+    <img class="logo-lg" src="https://frutasalifruit.com/wp-content/uploads/grupoalifruit.png" alt="Alifruit – Sabor de la Tierra" />
+  </a>
+
+  <nav class="menu-d" aria-label="Menú principal">
+    <ul>
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="servicios.html">Servicios a Empresas</a></li>
+      <li><a href="somos.html" class="active">Quiénes Somos</a></li>
+      <li><a href="productos.html">Productos</a></li>
+      <li><a href="certificaciones.html">Certificaciones</a></li>
+      <li><a href="calidad.html">Calidad</a></li>
+      <li><a href="calendario.html">Calendario Varietal</a></li>
+      <li><a href="contacto.html">Contacto y Ubicación</a></li>
+      <li><a href="galeria.html">Galeria</a></li>
+    </ul>
+  </nav>
+
+  <div class="foot">
+    <div class="social">
+      <a class="fb" aria-label="Facebook" href="https://www.facebook.com/Grupo-Alifruit-Sabor-de-la-Tierra-1671097156478760/" target="_blank" rel="noopener"><i class="fa-brands fa-facebook-f"></i></a>
+      <a class="yt" aria-label="YouTube" href="https://www.youtube.com/" target="_blank" rel="noopener"><i class="fa-brands fa-youtube"></i></a>
+    </div>
+    <div class="copy">
+      <div>Todos los derechos reservados</div>
+      <div>Alifruit © 2016 | Diseño Web |</div>
+      <div><a href="http://guellcom.com/" target="_blank" rel="noopener">GuellCom_</a></div>
+    </div>
+  </div>
+</aside>
+<!-- ====== FIN LATERAL IZQUIERDO ====== -->
+
+<main>
+  <!-- HERO -->
+  <section class="hero" aria-label="Imagen de cabecera">
+    <img src="https://frutasalifruit.com/wp-content/uploads/colage.jpg" alt="Collage de frutas — Alifruit">
+    <div class="hero-title">Quiénes Somos</div>
+  </section>
+
+  <!-- Presentación -->
+  <section class="section" aria-label="Presentación">
+    <h1>Pasión por el campo y la calidad</h1>
+    <p class="lead">Somos un equipo especializado en <b>abastecimiento, control de calidad y logística</b> de productos agroindustriales. Conectamos la producción responsable con los mercados más exigentes, garantizando <b>trazabilidad</b> y <b>cadena de frío</b> de extremo a extremo.</p>
+  </section>
+
+  <!-- Misión / Visión / Valores -->
+  <section class="section" aria-label="Misión, Visión y Valores">
+    <div class="pillars">
+      <div class="panel">
+        <h3><i class="fa-solid fa-bullseye"></i> Misión</h3>
+        <p>Impulsar exportaciones sostenibles con estándares de calidad que protejan al consumidor, al productor y al medio ambiente.</p>
+      </div>
+      <div class="panel">
+        <h3><i class="fa-solid fa-eye"></i> Visión</h3>
+        <p>Ser aliados estratégicos de importadores y retail, reconocidos por confiabilidad operativa y excelencia en servicio.</p>
+      </div>
+      <div class="panel">
+        <h3><i class="fa-solid fa-handshake-angle"></i> Valores</h3>
+        <p>Integridad, seguridad alimentaria, mejora continua, cero desperdicio, trazabilidad y compromiso con la comunidad.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Línea de tiempo -->
+  <section class="section" aria-label="Nuestra historia">
+    <h2>Nuestra historia</h2>
+    <div class="timeline">
+      <div class="item">
+        <div class="year">2016</div>
+        <div class="desc">Nace Alifruit con foco en acopio y clasificación primaria de fruta fresca.</div>
+      </div>
+      <div class="item">
+        <div class="year">2019</div>
+        <div class="desc">Implementamos protocolos QC/QA y reporte digital para lotes exportables.</div>
+      </div>
+      <div class="item">
+        <div class="year">2022</div>
+        <div class="desc">Escalamos servicios de empaque y etiquetado para clientes retail en UE/USA.</div>
+      </div>
+      <div class="item">
+        <div class="year">2025</div>
+        <div class="desc">Estandarizamos cadena de frío y monitoreo con data loggers en toda la operación.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Equipo -->
+  <section class="section team" aria-label="Equipo">
+    <h2>Equipo</h2>
+    <div class="cards" role="list">
+      <article class="card" role="listitem">
+        <div class="avatar"><i class="fa-solid fa-user"></i></div>
+        <div>
+          <div class="role">Dirección General</div>
+          <div class="meta">Gestión estratégica, alianzas y expansión comercial.</div>
+        </div>
+      </article>
+      <article class="card" role="listitem">
+        <div class="avatar"><i class="fa-solid fa-user-check"></i></div>
+        <div>
+          <div class="role">Calidad &amp; Inocuidad</div>
+          <div class="meta">Protocolos HACCP/BRCGS, liberación de lotes y auditorías internas.</div>
+        </div>
+      </article>
+      <article class="card" role="listitem">
+        <div class="avatar"><i class="fa-solid fa-user-gear"></i></div>
+        <div>
+          <div class="role">Operaciones &amp; Logística</div>
+          <div class="meta">Cadena de frío, transporte y coordinación de exportaciones.</div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- Cifras -->
+  <section class="section" aria-label="Cifras de confianza">
+    <div class="stats">
+      <div class="stat"><b>+9</b>Años de experiencia</div>
+      <div class="stat"><b>24/7</b>Atención operativa</div>
+      <div class="stat"><b>100%</b>Trazabilidad por pallet</div>
+      <div class="stat"><b>0</b>Compromiso con NC abiertas</div>
+    </div>
+  </section>
+</main>
+
+<!-- =================== PIE DE PÁGINA =================== -->
+<footer>
+  <div class="footer-news" role="region" aria-label="Mantente informado">
+    <span>¡Mantente informado!</span>
+    <div class="icons">
+      <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+      <a href="#" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a>
+      <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+      <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+      <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+    </div>
+  </div>
+
+  <section class="ff-grid">
+    <div class="ff-wrap">
+      <div class="ff-products">
+        <h3 class="ff-title">Productos</h3>
+        <ul class="ff-list">
+          <li><a href="productos.html">Palta</a></li>
+          <li><a href="productos.html">Cúrcuma</a></li>
+          <li><a href="productos.html">Espárrago verde</a></li>
+          <li><a href="productos.html">Mango</a></li>
+          <li><a href="productos.html">Granada</a></li>
+          <li><a href="productos.html">Arándano</a></li>
+          <li><a href="productos.html">Jengibre</a></li>
+        </ul>
+      </div>
+
+      <div class="ff-about">
+        <h3 class="ff-title">Sobre Nosotros</h3>
+        <ul class="ff-list">
+          <li><a href="somos.html" class="active">Quiénes Somos</a></li>
+          <li><a href="servicios.html">Servicios</a></li>
+          <li><a href="certificaciones.html">Certificaciones</a></li>
+          <li><a href="calidad.html">Calidad</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+      </div>
+
+      <div class="ff-brand">
+        <div class="brand-box">
+          <img src="https://frutasalifruit.com/wp-content/uploads/grupoalifruit.png" alt="Logo">
+          <div class="social" aria-label="Redes sociales">
+            <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+            <a href="#" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="ff-contact">
+        <h3 class="ff-title">Contacto</h3>
+        <div class="contact">
+          <div class="ci">
+            <span class="round"><i class="fa-solid fa-phone-volume"></i></span>
+            <div><a href="tel:+905375207022">+90 537 520 70 22</a></div>
+          </div>
+          <div class="ci">
+            <span class="round"><i class="fa-solid fa-envelope"></i></span>
+            <div><a href="mailto:info@freshfruitturkey.com">info@freshfruitturkey.com</a></div>
+          </div>
+          <div class="ci">
+            <span class="round"><i class="fa-solid fa-location-dot"></i></span>
+            <div>Güzeloba Mah. Çağlayangil Cad. No: 3B, 07230<br>Muratpaşa / Antalya</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="footer-legal">
+    <div class="links">
+      <a href="#">Términos y condiciones</a>
+      <a href="#">Política de cookies</a>
+      <a href="#">Política de privacidad</a>
+    </div>
+    <div class="country">Yarphonestore.com – Perú.</div>
+  </section>
+</footer>
+
+<!-- ===== TICKER INFERIOR ===== -->
+<div class="ticker" role="region" aria-label="Avisos y contacto">
+  <div class="ticker__track">
+    <div class="ticker__inner">
+      <span class="ticker__item">SERVICIO ESPECIAL USUARIO 24h</span><span class="ticker__sep">→</span>
+      <a class="ticker__item" href="https://wa.me/51910064458" target="_blank" rel="noopener">T +51&nbsp;910&nbsp;064&nbsp;458</a>
+      <span class="ticker__item">SERVICIO ESPECIAL USUARIO 24h</span><span class="ticker__sep">→</span>
+      <a class="ticker__item" href="https://wa.me/51910064458" target="_blank" rel="noopener">T +51&nbsp;910&nbsp;064&nbsp;458</a>
+      <span class="ticker__item">SERVICIO ESPECIAL USUARIO 24h</span><span class="ticker__sep">→</span>
+      <a class="ticker__item" href="https://wa.me/51910064458" target="_blank" rel="noopener">T +51&nbsp;910&nbsp;064&nbsp;458</a>
+    </div>
+    <div class="ticker__inner" aria-hidden="true">
+      <span class="ticker__item">SERVICIO ESPECIAL USUARIO 24h</span><span class="ticker__sep">→</span>
+      <a class="ticker__item" href="https://wa.me/51910064458" target="_blank" rel="noopener">T +51&nbsp;910&nbsp;064&nbsp;458</a>
+      <span class="ticker__item">SERVICIO ESPECIAL USUARIO 24h</span><span class="ticker__sep">→</span>
+      <a class="ticker__item" href="https://wa.me/51910064458" target="_blank" rel="noopener">T +51&nbsp;910&nbsp;064&nbsp;458</a>
+      <span class="ticker__item">SERVICIO ESPECIAL USUARIO 24h</span><span class="ticker__sep">→</span>
+      <a class="ticker__item" href="https://wa.me/51910064458" target="_blank" rel="noopener">T +51&nbsp;910&nbsp;064&nbsp;458</a>
+    </div>
+  </div>
+</div>
+
+<script>
+  const drawer=document.getElementById('drawer');
+  const scrim=document.getElementById('scrim');
+  const btnMenu=document.getElementById('btnMenu');
+  const btnClose=document.getElementById('btnClose');
+
+  const openDrawer=()=>{drawer.classList.add('open');scrim.classList.add('open');};
+  const closeDrawer=()=>{drawer.classList.remove('open');scrim.classList.remove('open');};
+
+  btnMenu?.addEventListener('click',openDrawer);
+  btnClose?.addEventListener('click',closeDrawer);
+  scrim?.addEventListener('click',closeDrawer);
+  drawer.querySelectorAll('a').forEach(a=>a.addEventListener('click',closeDrawer));
+</script>
+
+</body>
+</html>

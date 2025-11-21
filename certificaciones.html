@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Certificaciones — Alifruit</title>
+
+<link rel="icon" type="image/png" href="https://frutasalifruit.com/wp-content/uploads/grupoalifruit.png" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --bp-tablet:768px; --bp-desktop:1024px;
+    --topbar-h:58px; --sidebar-w:270px;
+
+    --panel:#000; --ink:#fff; --border:#1f1f1f;
+    --active:#ff6a21; --content-bg:#fff; --fb:#ff6a21;
+
+    --footer-ink:#111; --footer-dark:#111; --footer-legal:#f7f7f7;
+
+    --ticker-h:40px; --ticker-bg:#000; --ticker-ink:#fff; --ticker-sep:#fff;
+  }
+  @media (min-width:768px) and (max-width:1023.98px){ :root{ --topbar-h:60px; } }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    font-family:"Open Sans",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+    background:var(--content-bg);color:#111;
+    padding-bottom:var(--ticker-h);
+  }
+
+  /* ===== TOPBAR (móvil/tablet) ===== */
+  .topbar{position:fixed;inset:0 0 auto 0;height:var(--topbar-h);display:flex;align-items:center;z-index:100;background:var(--panel);color:var(--ink);border-bottom:1px solid var(--border)}
+  .topbar__in{width:100%;max-width:1200px;margin:0 auto;height:100%;padding:0 14px;display:flex;align-items:center;justify-content:space-between}
+  .brand{display:flex;align-items:center;gap:10px;min-width:0}
+  .brand-link{display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit}
+  .logo-sm{width:28px;height:28px;border-radius:6px;overflow:hidden;display:flex;align-items:center;justify-content:center;flex:0 0 auto;background:transparent}
+  @media (max-width:1023.98px){ .logo-sm{width:31px;height:31px} }
+  .logo-sm img{width:100%;height:100%;object-fit:contain}
+  .brand-name{color:var(--ink);font-weight:800;letter-spacing:.2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .right-actions{display:flex;align-items:center;gap:8px}
+  .btn-icon{width:36px;height:36px;border-radius:10px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--border);background:#0f0f0f;color:var(--ink)}
+  .btn-icon:active{transform:translateY(1px)}
+  .btn-icon:focus-visible{outline:2px solid #3aa3ff;outline-offset:2px}
+
+  /* ===== Drawer ===== */
+  .scrim{position:fixed;inset:0;background:rgba(0,0,0,.5);opacity:0;visibility:hidden;transition:.2s;z-index:99}
+  .scrim.open{opacity:1;visibility:visible}
+  .drawer{position:fixed;top:0;left:0;bottom:0;width:80vw;max-width:360px;background:#141414;color:var(--ink);border-right:1px solid #1e1e1e;transform:translateX(-100%);transition:transform .25s;z-index:100;display:flex;flex-direction:column}
+  .drawer.open{transform:translateX(0)}
+  .d-top{height:var(--topbar-h);display:flex;align-items:center;justify-content:space-between;gap:10px;padding:0 14px;border-bottom:1px solid #1f1f1f}
+  .d-brand{display:flex;align-items:center;gap:10px;min-width:0}
+  .d-brand-link{display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit}
+  .d-close{width:32px;height:32px;border-radius:8px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;border:1px solid #2a2a2a;background:#101010;color:#e5e7eb}
+  .drawer .menu{overflow:auto;padding:20px 0 10px}
+  .drawer .menu ul{list-style:none}
+  .drawer .menu li{border-top:1px solid #111}
+  .drawer .menu li:first-child{border-top:none}
+  .drawer .menu a{display:block;padding:14px 18px;text-decoration:none;color:#e5e7eb;font-weight:600;transition:color .15s;border-radius:10px;text-align:left}
+  .drawer .menu a:hover,.drawer .menu a:focus-visible{color:var(--active)}
+  .drawer .menu a.active{color:var(--active)}
+
+  /* ===== SIDEBAR (solo desktop) ===== */
+  .left{display:none}
+  @media (min-width:1024px){
+    .topbar{display:none}
+    .left{display:flex;position:fixed;inset:0 auto 0 0;width:var(--sidebar-w);background:var(--panel);color:var(--ink);border-right:1px solid var(--border);flex-direction:column;align-items:center;padding:18px 16px;text-align:center}
+    .left .logo-lg{width:200px;height:auto;object-fit:contain;display:block;margin:6px auto 58px auto}
+    .menu-d ul{list-style:none;display:flex;flex-direction:column;gap:16px;align-items:center}
+    .menu-d a{color:var(--ink);text-decoration:none;font-weight:600;text-transform:uppercase;letter-spacing:.6px;padding:8px 12px;display:inline-block;border:1px solid transparent;border-radius:12px;transition:color .15s;text-align:center;min-width:200px;font-size:15px}
+    .menu-d a:hover,.menu-d a:focus-visible{color:var(--active)}
+    .menu-d a.active{color:var(--active)}
+
+    .foot{margin-top:auto;text-align:center;padding:22px 0 10px;width:100%}
+    .foot .social{display:flex;gap:10px;justify-content:center;align-items:center;margin-bottom:12px}
+    .foot .social a{width:21px;height:21px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;text-decoration:none;overflow:hidden;line-height:1;background:var(--fb);color:#000;border:2px solid var(--fb)}
+    .foot .copy{width:220px;margin:20px auto 0;font-size:11px;line-height:1.35;color:#fff;text-transform:uppercase;letter-spacing:.4px}
+    .foot .copy a{color:#fff;text-decoration:none;border-bottom:1px dotted #5a5a5a}
+  }
+
+  /* ===== CONTENIDO ===== */
+  main{min-height:100svh;background:var(--content-bg);padding:0;padding-top:var(--topbar-h)}
+  @media (min-width:1024px){main{margin-left:var(--sidebar-w);padding-top:0}}
+
+  /* Hero */
+  .hero{margin:0;position:relative}
+  .hero img{display:block;width:100%;height:auto;object-fit:cover}
+  .hero-title{
+    position:absolute;left:50%;top:15%;
+    transform:translate(-50%,-20px); /* ~20px más arriba (preferencia del usuario) */
+    background:rgba(0,0,0,.55);color:#fff;padding:10px 14px;border-radius:10px;font-weight:800;letter-spacing:.4px
+  }
+
+  .section{max-width:1200px;margin:28px auto;padding:0 16px}
+  .section h1{font-size:28px;margin-bottom:12px}
+  .lead{font-size:15px;opacity:.9;line-height:1.6;margin-bottom:20px}
+
+  /* Badges de certificaciones */
+  .badges{display:grid;gap:14px;grid-template-columns:1fr}
+  .badge{
+    border:1px solid #eee;border-radius:14px;background:#fff;padding:14px;display:flex;gap:14px;align-items:center
+  }
+  .b-ico{
+    width:54px;height:54px;border-radius:12px;background:#111;color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:26px;flex:0 0 54px
+  }
+  .b-txt h3{font-size:18px;margin-bottom:4px}
+  .b-txt p{font-size:14px;opacity:.95;line-height:1.55}
+  @media (min-width:768px){ .badges{grid-template-columns:repeat(2,1fr)} }
+  @media (min-width:1024px){ .badges{grid-template-columns:repeat(3,1fr)} }
+
+  /* Proceso de auditoría */
+  .process{margin-top:28px}
+  .steps{display:grid;gap:14px;grid-template-columns:1fr}
+  .step{border:1px dashed #ddd;border-radius:14px;background:#fff;padding:14px}
+  .step b{display:block;margin-bottom:6px}
+  @media (min-width:768px){ .steps{grid-template-columns:repeat(3,1fr)} }
+
+  /* Documentos */
+  .docs{margin-top:26px;border:1px solid #eee;border-radius:14px;background:#fff}
+  .docs h2{font-size:22px;padding:14px;border-bottom:1px solid #eee}
+  .doc-list{display:grid;gap:10px;padding:14px}
+  .doc-item{display:flex;gap:12px;align-items:center;justify-content:space-between;border:1px solid #eee;border-radius:12px;padding:12px}
+  .doc-meta{font-size:14px}
+  .dl{display:inline-flex;align-items:center;gap:8px;background:#ff6a21;color:#fff;border:1px solid #ff6a21;border-radius:10px;padding:8px 12px;font-weight:800;text-decoration:none}
+
+  /* FAQ */
+  .faq{margin-top:26px}
+  .faq details{border:1px solid #eee;border-radius:12px;padding:12px 14px;background:#fff;margin-bottom:10px}
+  .faq summary{cursor:pointer;font-weight:800}
+
+  /* =================== PIE DE PÁGINA =================== */
+  footer{margin-top:40px}
+  .footer-news{height:91px;display:flex;align-items:center;justify-content:center;gap:18px;background:#fff;color:#111;font-family:Arial,Helvetica,sans-serif;font-size:12px;font-weight:400}
+  .footer-news .icons{display:flex;gap:18px;align-items:center}
+  .footer-news .icons a{width:28px;height:28px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;color:#111;text-decoration:none;border:1px solid #dcdcdc}
+
+  .ff-grid{background:var(--footer-dark);color:#fff;padding:32px 16px;font-family:Arial,Helvetica,sans-serif;font-size:12px}
+  .ff-wrap{max-width:1200px;margin:0 auto;display:grid;gap:24px;grid-template-columns:1fr;align-items:flex-start;grid-template-areas:"prods" "about" "brand" "contact"}
+  .ff-products{grid-area:prods}
+  .ff-about{grid-area:about}
+  .ff-brand{grid-area:brand}
+  .ff-contact{grid-area:contact}
+  .ff-title{font-weight:800;color:#e9f4ec;margin-bottom:10px;font-size:18px}
+  .ff-list{list-style:none;display:grid;gap:8px}
+  .ff-list a{color:#e8fff0;font-weight:700;text-decoration:none}
+  .ff-list a:hover{text-decoration:underline}
+  .brand-box{display:flex;flex-direction:column;gap:14px;align-items:center}
+  .brand-box img{max-width:220px;height:auto;object-fit:contain;display:block}
+  .social{display:flex;gap:12px;align-items:center;justify-content:center}
+  .social a{width:36px;height:36px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;border:1px solid #d8d8d8;color:#d8d8d8}
+  .social a:hover{background:#f1f1f1;color:#333}
+  .contact{display:grid;gap:14px}
+  .ci{display:flex;align-items:flex-start;gap:12px;color:#fff;line-height:1.55}
+  .ci .round{width:38px;height:38px;border-radius:50%;background:#ff6a21;color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:16px;flex:0 0 38px}
+  .ci a{color:#fff;text-decoration:none}
+  .ci a:hover{opacity:.85}
+
+  @media (max-width:767.98px){
+    .ff-title{font-size:16px}
+    .ff-list a{font-size:13px}
+    .ff-wrap{grid-template-columns:1fr 1fr;grid-template-areas:"prods about" "brand brand" "contact contact"}
+  }
+  @media (min-width:768px){
+    .ff-title{font-size:20px}
+    .ff-list a{font-size:14px}
+    .brand-box img{max-width:200px}
+    .ff-wrap{grid-template-columns:1.1fr 1fr 1fr 1.2fr;grid-template-areas:"brand prods about contact"}
+  }
+  @media (min-width:1024px){
+    .ff-title{font-size:22px}
+    .brand-box img{max-width:220px}
+  }
+
+  .footer-legal{background:var(--footer-legal);color:#000;text-align:center;padding:18px 12px 26px 12px;font-family:Arial,Helvetica,sans-serif;font-size:12px}
+  .footer-legal .links{display:flex;gap:22px;justify-content:center;flex-wrap:wrap;margin-bottom:8px;font-size:14px}
+  .footer-legal .links a{color:#000;text-decoration:underline}
+  .footer-legal .country{opacity:.8;font-size:14px}
+
+  @media (min-width:1024px){footer{margin-left:var(--sidebar-w)}}
+
+  /* ===== TICKER INFERIOR ===== */
+  .ticker{position:fixed;right:0;bottom:0;height:var(--ticker-h);left:0;background:var(--ticker-bg);color:var(--ticker-ink);z-index:200;overflow:hidden;border-top:1px solid #111}
+  @media (min-width:1024px){.ticker{left:var(--sidebar-w)}}
+  .ticker__track{display:flex;gap:64px;align-items:center;height:100%;white-space:nowrap;will-change:transform;animation:ticker-move 30s linear infinite;padding-left:24px}
+  .ticker__inner{display:flex;gap:64px;align-items:center}
+  .ticker__item{display:inline-flex;align-items:center;gap:14px;font-weight:800;letter-spacing:.5px;font-size:16px;text-transform:uppercase;color:var(--ticker-ink)}
+  .ticker__sep{opacity:.95;color:var(--ticker-sep)}
+  .ticker a{color:var(--ticker-ink);text-decoration:none}
+  .ticker a:hover{text-decoration:underline}
+  @keyframes ticker-move{from{transform:translateX(0)}to{transform:translateX(-150%)}}
+
+  a,button{-webkit-tap-highlight-color:transparent}
+  a:focus,button:focus{outline:none}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<header class="topbar" aria-label="Barra superior">
+  <div class="topbar__in">
+    <a class="brand-link" href="index.html" aria-label="Ir al inicio">
+      <div class="brand">
+        <div class="logo-sm" aria-hidden="true">
+          <img src="https://frutasalifruit.com/wp-content/uploads/grupoalifruit.png" alt="">
+        </div>
+        <span class="brand-name">Alifruit</span>
+      </div>
+    </a>
+    <div class="right-actions">
+      <button class="btn-icon" id="btnMenu" aria-label="Abrir menú"><i class="fa fa-bars"></i></button>
+    </div>
+  </div>
+</header>
+
+<div class="scrim" id="scrim"></div>
+
+<!-- DRAWER -->
+<aside class="drawer" id="drawer" aria-label="Menú principal">
+  <div class="d-top">
+    <a class="d-brand-link" href="index.html" aria-label="Ir al inicio">
+      <div class="d-brand">
+        <div class="logo-sm" aria-hidden="true">
+          <img src="https://frutasalifruit.com/wp-content/uploads/grupoalifruit.png" alt="">
+        </div>
+        <span class="brand-name">Alifruit</span>
+      </div>
+    </a>
+    <button class="d-close" id="btnClose" aria-label="Cerrar menú"><i class="fa fa-times"></i></button>
+  </div>
+  <nav class="menu" role="navigation">
+    <ul>
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="servicios.html">Servicios a Empresas</a></li>
+      <li><a href="somos.html">Quiénes Somos</a></li>
+      <li><a href="productos.html">Productos</a></li>
+      <li><a href="certificaciones.html" class="active">Certificaciones</a></li>
+      <li><a href="calidad.html">Calidad</a></li>
+      <li><a href="calendario.html">Calendario Varietal</a></li>
+      <li><a href="contacto.html">Contacto y Ubicación</a></li>
+      <li><a href="galeria.html">Galeria</a></li>
+    </ul>
+  </nav>
+</aside>
+
+<!-- ====== LATERAL IZQUIERDO (encabezado) ====== -->
+<aside id="leftHeader" class="left" aria-label="Encabezado izquierdo">
+  <a href="index.html" aria-label="Ir al inicio">
+    <img class="logo-lg" src="https://frutasalifruit.com/wp-content/uploads/grupoalifruit.png" alt="Alifruit – Sabor de la Tierra" />
+  </a>
+
+  <nav class="menu-d" aria-label="Menú principal">
+    <ul>
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="servicios.html">Servicios a Empresas</a></li>
+      <li><a href="somos.html">Quiénes Somos</a></li>
+      <li><a href="productos.html">Productos</a></li>
+      <li><a href="certificaciones.html" class="active">Certificaciones</a></li>
+      <li><a href="calidad.html">Calidad</a></li>
+      <li><a href="calendario.html">Calendario Varietal</a></li>
+      <li><a href="contacto.html">Contacto y Ubicación</a></li>
+      <li><a href="galeria.html">Galeria</a></li>
+    </ul>
+  </nav>
+
+  <div class="foot">
+    <div class="social">
+      <a class="fb" aria-label="Facebook" href="https://www.facebook.com/Grupo-Alifruit-Sabor-de-la-Tierra-1671097156478760/" target="_blank" rel="noopener"><i class="fa-brands fa-facebook-f"></i></a>
+      <a class="yt" aria-label="YouTube" href="https://www.youtube.com/" target="_blank" rel="noopener"><i class="fa-brands fa-youtube"></i></a>
+    </div>
+    <div class="copy">
+      <div>Todos los derechos reservados</div>
+      <div>Alifruit © 2016 | Diseño Web |</div>
+      <div><a href="http://guellcom.com/" target="_blank" rel="noopener">GuellCom_</a></div>
+    </div>
+  </div>
+</aside>
+<!-- ====== FIN LATERAL IZQUIERDO ====== -->
+
+<main>
+  <!-- HERO -->
+  <section class="hero" aria-label="Imagen de cabecera">
+    <img src="https://frutasalifruit.com/wp-content/uploads/colage.jpg" alt="Collage de frutas — Alifruit">
+    <div class="hero-title">Certificaciones</div>
+  </section>
+
+  <!-- INTRO -->
+  <section class="section" aria-label="Introducción">
+    <h1>Respaldados por estándares internacionales</h1>
+    <p class="lead">Nuestros procesos cumplen con los requerimientos de inocuidad, legalidad y responsabilidad social exigidos por los mercados más exigentes. Aquí encontrarás un resumen de nuestras principales certificaciones y la documentación de soporte.</p>
+  </section>
+
+  <!-- BADGES -->
+  <section class="section" aria-label="Certificaciones vigentes">
+    <div class="badges" role="list">
+      <article class="badge" role="listitem">
+        <div class="b-ico"><i class="fa-solid fa-leaf"></i></div>
+        <div class="b-txt">
+          <h3>GLOBALG.A.P.</h3>
+          <p>Buenas prácticas agrícolas para garantizar la seguridad del alimento desde el campo: trazabilidad, uso responsable de insumos y bienestar del trabajador.</p>
+        </div>
+      </article>
+      <article class="badge" role="listitem">
+        <div class="b-ico"><i class="fa-solid fa-shield-halved"></i></div>
+        <div class="b-txt">
+          <h3>HACCP</h3>
+          <p>Análisis de peligros y puntos críticos de control para mitigar riesgos de inocuidad durante empaque, almacenamiento y despacho.</p>
+        </div>
+      </article>
+      <article class="badge" role="listitem">
+        <div class="b-ico"><i class="fa-solid fa-certificate"></i></div>
+        <div class="b-txt">
+          <h3>BRCGS</h3>
+          <p>Estándar reconocido por retail internacional para seguridad alimentaria, legalidad y calidad del producto terminado.</p>
+        </div>
+      </article>
+      <article class="badge" role="listitem">
+        <div class="b-ico"><i class="fa-solid fa-seedling"></i></div>
+        <div class="b-txt">
+          <h3>Orgánico</h3>
+          <p>Cumplimiento con normativas orgánicas (ej. UE/NOP) según cultivo/campaña y destino comercial.</p>
+        </div>
+      </article>
+      <article class="badge" role="listitem">
+        <div class="b-ico"><i class="fa-solid fa-people-group"></i></div>
+        <div class="b-txt">
+          <h3>SMETA / SEDEX</h3>
+          <p>Buenas prácticas laborales y ética en la cadena de suministro, con auditorías sociales y planes de mejora continua.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- PROCESO DE AUDITORÍA -->
+  <section class="section process" aria-label="Proceso de auditoría">
+    <h2>Proceso de auditoría y mantenimiento</h2>
+    <div class="steps">
+      <div class="step"><b>1) Diagnóstico</b> Revisión de requisitos por estándar y gap analysis por área (campo, packing, logística).</div>
+      <div class="step"><b>2) Implementación</b> Procedimientos, registros, capacitación y control operativo.</div>
+      <div class="step"><b>3) Verificación</b> Auditoría interna, acciones correctivas y preparación de auditoría de tercera parte.</div>
+    </div>
+  </section>
+
+  <!-- DOCUMENTOS DESCARGABLES -->
+  <section class="section docs" aria-label="Documentación">
+    <h2>Documentos</h2>
+    <div class="doc-list">
+      <!-- Reemplaza los href con tus PDFs reales -->
+      <div class="doc-item">
+        <div class="doc-meta"><b>Política de Inocuidad</b><br><small>Versión 2025 · PDF</small></div>
+        <a class="dl" href="#" download><i class="fa-solid fa-download"></i> Descargar</a>
+      </div>
+      <div class="doc-item">
+        <div class="doc-meta"><b>Manual HACCP</b><br><small>Última revisión 2025-08 · PDF</small></div>
+        <a class="dl" href="#" download><i class="fa-solid fa-download"></i> Descargar</a>
+      </div>
+      <div class="doc-item">
+        <div class="doc-meta"><b>Certificado GLOBALG.A.P.</b><br><small>Válido hasta 2026-06 · PDF</small></div>
+        <a class="dl" href="#" download><i class="fa-solid fa-download"></i> Descargar</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section faq" aria-label="Preguntas frecuentes">
+    <h2>Preguntas frecuentes</h2>
+    <details>
+      <summary>¿Pueden compartir certificados por cultivo y campaña?</summary>
+      <p>Sí. Enviamos certificados y anexos por cultivo/lote una vez acordado el programa comercial y los destinos.</p>
+    </details>
+    <details>
+      <summary>¿Cómo gestionan la trazabilidad?</summary>
+      <p>Identificación por pallet y etiquetas con código de lote; registros de campo, packing y transporte para rastrear origen y manejo.</p>
+    </details>
+    <details>
+      <summary>¿Atienden auditorías cliente?</summary>
+      <p>Coordinamos visitas on-site o remotas; compartimos evidencias, CAPAs y resultados de auditorías de tercera parte.</p>
+    </details>
+  </section>
+</main>
+
+<!-- =================== PIE DE PÁGINA =================== -->
+<footer>
+  <div class="footer-news" role="region" aria-label="Mantente informado">
+    <span>¡Mantente informado!</span>
+    <div class="icons">
+      <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+      <a href="#" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a>
+      <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+      <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+      <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+    </div>
+  </div>
+
+  <section class="ff-grid">
+    <div class="ff-wrap">
+      <div class="ff-products">
+        <h3 class="ff-title">Productos</h3>
+        <ul class="ff-list">
+          <li><a href="productos.html#palta">Palta</a></li>
+          <li><a href="productos.html#curcuma">Cúrcuma</a></li>
+          <li><a href="productos.html#esparrago">Espárrago verde</a></li>
+          <li><a href="productos.html#mango">Mango</a></li>
+          <li><a href="productos.html#granada">Granada</a></li>
+          <li><a href="productos.html#arandano">Arándano</a></li>
+          <li><a href="productos.html#jengibre">Jengibre</a></li>
+        </ul>
+      </div>
+
+      <div class="ff-about">
+        <h3 class="ff-title">Sobre Nosotros</h3>
+        <ul class="ff-list">
+          <li><a href="somos.html">Quiénes Somos</a></li>
+          <li><a href="servicios.html">Servicios</a></li>
+          <li><a href="certificaciones.html" class="active">Certificaciones</a></li>
+          <li><a href="calidad.html">Calidad</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+      </div>
+
+      <div class="ff-brand">
+        <div class="brand-box">
+          <img src="https://frutasalifruit.com/wp-content/uploads/grupoalifruit.png" alt="Logo">
+          <div class="social" aria-label="Redes sociales">
+            <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+            <a href="#" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="ff-contact">
+        <h3 class="ff-title">Contacto</h3>
+        <div class="contact">
+          <div class="ci">
+            <span class="round"><i class="fa-solid fa-phone-volume"></i></span>
+            <div><a href="tel:+905375207022">+90 537 520 70 22</a></div>
+          </div>
+          <div class="ci">
+            <span class="round"><i class="fa-solid fa-envelope"></i></span>
+            <div><a href="mailto:info@freshfruitturkey.com">info@freshfruitturkey.com</a></div>
+          </div>
+          <div class="ci">
+            <span class="round"><i class="fa-solid fa-location-dot"></i></span>
+            <div>Güzeloba Mah. Çağlayangil Cad. No: 3B, 07230<br>Muratpaşa / Antalya</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="footer-legal">
+    <div class="links">
+      <a href="#">Términos y condiciones</a>
+      <a href="#">Política de cookies</a>
+      <a href="#">Política de privacidad</a>
+    </div>
+    <div class="country">Yarphonestore.com – Perú.</div>
+  </section>
+</footer>
+
+<!-- ===== TICKER INFERIOR ===== -->
+<div class="ticker" role="region" aria-label="Avisos y contacto">
+  <div class="ticker__track">
+    <div class="ticker__inner">
+      <span class="ticker__item">SERVICIO ESPECIAL USUARIO 24h</span><span class="ticker__sep">→</span>
+      <a class="ticker__item" href="https://wa.me/51910064458" target="_blank" rel="noopener">T +51&nbsp;910&nbsp;064&nbsp;458</a>
+      <span class="ticker__item">SERVICIO ESPECIAL USUARIO 24h</span><span class="ticker__sep">→</span>
+      <a class="ticker__item" href="https://wa.me/51910064458" target="_blank" rel="noopener">T +51&nbsp;910&nbsp;064&nbsp;458</a>
+      <span class="ticker__item">SERVICIO ESPECIAL USUARIO 24h</span><span class="ticker__sep">→</span>
+      <a class="ticker__item" href="https://wa.me/51910064458" target="_blank" rel="noopener">T +51&nbsp;910&nbsp;064&nbsp;458</a>
+    </div>
+    <div class="ticker__inner" aria-hidden="true">
+      <span class="ticker__item">SERVICIO ESPECIAL USUARIO 24h</span><span class="ticker__sep">→</span>
+      <a class="ticker__item" href="https://wa.me/51910064458" target="_blank" rel="noopener">T +51&nbsp;910&nbsp;064&nbsp;458</a>
+      <span class="ticker__item">SERVICIO ESPECIAL USUARIO 24h</span><span class="ticker__sep">→</span>
+      <a class="ticker__item" href="https://wa.me/51910064458" target="_blank" rel="noopener">T +51&nbsp;910&nbsp;064&nbsp;458</a>
+      <span class="ticker__item">SERVICIO ESPECIAL USUARIO 24h</span><span class="ticker__sep">→</span>
+      <a class="ticker__item" href="https://wa.me/51910064458" target="_blank" rel="noopener">T +51&nbsp;910&nbsp;064&nbsp;458</a>
+    </div>
+  </div>
+</div>
+
+<script>
+  const drawer=document.getElementById('drawer');
+  const scrim=document.getElementById('scrim');
+  const btnMenu=document.getElementById('btnMenu');
+  const btnClose=document.getElementById('btnClose');
+
+  const openDrawer=()=>{drawer.classList.add('open');scrim.classList.add('open');};
+  const closeDrawer=()=>{drawer.classList.remove('open');scrim.classList.remove('open');};
+
+  btnMenu?.addEventListener('click',openDrawer);
+  btnClose?.addEventListener('click',closeDrawer);
+  scrim?.addEventListener('click',closeDrawer);
+  drawer.querySelectorAll('a').forEach(a=>a.addEventListener('click',closeDrawer));
+</script>
+
+</body>
+</html>
