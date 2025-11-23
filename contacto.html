@@ -54,7 +54,10 @@ main{min-height:100svh;background:var(--content-bg);padding-top:var(--topbar-h)}
 .visit-address{text-align:center;font-size:16px;margin-bottom:22px}
 .visit-address i{color:#e53935;margin-right:6px}
 .visit-grid{display:grid;grid-template-columns:1fr;gap:0;justify-content:center}
-@media (min-width:900px){.visit-grid{grid-template-columns:456px 456px;justify-content:center}}
+/* Tablet: 456 x 460 foto y mapa */
+@media (min-width:768px) and (max-width:1023.98px){.visit-grid{grid-template-columns:456px 456px;justify-content:center}}
+/* Desktop: 660 x 460 foto y mapa */
+@media (min-width:1024px){.visit-grid{grid-template-columns:660px 660px;justify-content:center}}
 .visit-photo img{width:100%;height:460px;border-radius:0;object-fit:cover;display:block}
 .visit-map iframe{width:100%;height:460px;border-radius:0;border:0;display:block}
 footer{margin-top:0}
@@ -121,7 +124,6 @@ a:focus,button:focus{outline:none}
 @keyframes bot-bounce{0%{transform:translateY(0)}100%{transform:translateY(-14px)}}
 .bot-panel{position:fixed;right:24px;bottom:calc(var(--ticker-h) + 110px);width:380px;max-width:96vw;background:#fff;border-radius:16px;box-shadow:0 16px 40px rgba(0,0,0,.3);padding:16px 20px 20px 20px;z-index:310;display:none;font-family:"Open Sans",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
 .bot-panel.open{display:block}
-/* AQUÍ CAMBIAMOS PARA QUE LOGO + ROBOT ESTÉN JUNTOS, CENTRADOS */
 .bot-panel-header{display:flex;justify-content:center;align-items:flex-end;gap:10px;margin-bottom:6px}
 .bot-panel-logo-upla{width:48px;height:55px;flex:0 0 auto;display:flex;align-items:center;justify-content:center}
 .bot-panel-logo-upla img{width:48px;height:55px;object-fit:contain}
@@ -181,7 +183,9 @@ a:focus,button:focus{outline:none}
 </aside>
 
 <aside id="leftHeader" class="left" aria-label="Encabezado izquierdo">
-  <a href="index.html" aria-label="Ir al inicio"><img class="logo-lg" src="https://frutasalifruit.com/wp-content/uploads/grupoalifruit.png" alt="Alifruit – Sabor de la Tierra" /></a>
+  <a href="index.html" aria-label="Ir al inicio">
+    <img class="logo-lg" src="https://frutasalifruit.com/wp-content/uploads/grupoalifruit.png" alt="Alifruit – Sabor de la Tierra" />
+  </a>
   <nav class="menu-d" aria-label="Menú principal">
     <ul>
       <li><a href="index.html">Inicio</a></li>
@@ -248,7 +252,9 @@ a:focus,button:focus{outline:none}
       <h2 class="visit-title">Visítanos en:</h2>
       <p class="visit-address"><i class="fa-solid fa-location-dot"></i>Jr. Cailloma 714 Of. 205 · Cercado de Lima, Perú</p>
       <div class="visit-grid">
-        <div class="visit-photo"><img src="https://frutasalifruit.com/wp-content/uploads/fachada-1.jpg" alt="Fachada Jr. Cailloma 714"></div>
+        <div class="visit-photo">
+          <img src="https://frutasalifruit.com/wp-content/uploads/fachada-1.jpg" alt="Fachada Jr. Cailloma 714">
+        </div>
         <div class="visit-map">
           <iframe title="Mapa — Jr. Cailloma 714 Of. 205, Lima" src="https://www.google.com/maps?q=Jir%C3%B3n+Cailloma+714,+Lima,+Per%C3%BA&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
@@ -375,7 +381,7 @@ a:focus,button:focus{outline:none}
     <div class="ticker__inner" aria-hidden="true">
       <span class="ticker__item">SERVICIO ESPECIAL USUARIO 24h</span><span class="ticker__sep">→</span><a class="ticker__item" href="https://wa.me/51910064458" target="_blank" rel="noopener">T +51&nbsp;910&nbsp;064&nbsp;458</a>
       <span class="ticker__item">SERVICIO ESPECIAL USUARIO 24h</span><span class="ticker__sep">→</span><a class="ticker__item" href="https://wa.me/51910064458" target="_blank" rel="noopener">T +51&nbsp;910&nbsp;064&nbsp;458</a>
-      <span class="ticker__item">SERVICIO ESPECIAL USUARIO 24h</span><span class="ticker__sep">→</span><a class="ticker__item" href="https://wa.me/51910064458" target##_blank" rel="noopener">T +51&nbsp;910&nbsp;064&nbsp;458</a>
+      <span class="ticker__item">SERVICIO ESPECIAL USUARIO 24h</span><span class="ticker__sep">→</span><a class="ticker__item" href="https://wa.me/51910064458" target="_blank" rel="noopener">T +51&nbsp;910&nbsp;064&nbsp;458</a>
     </div>
   </div>
 </div>
